@@ -13,6 +13,7 @@ export default defineConfig({
     command: 'npm run dev',
     url: 'http://localhost:3100',
     reuseExistingServer: false,
+    timeout: 120_000,
     env: { PORT: '3100', DATABASE_PATH: '.data/e2e.db', ADMIN_PASSWORD: E2E_ADMIN_PASSWORD },
   },
 });

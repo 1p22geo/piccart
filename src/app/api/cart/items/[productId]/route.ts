@@ -1,5 +1,6 @@
 import { removeFromCart, setCartQty } from '@/lib/cart';
-import { S, validateSetQty } from '@/lib/validation';
+import { validateSetQty } from '@/lib/validation';
+import { S } from '@/lib/strings';
 import { userFromRequest } from '@/lib/session';
 import { errorResponse, invalidBodyResponse, notFoundResponse, unauthenticatedResponse } from '@/lib/api-error';
 

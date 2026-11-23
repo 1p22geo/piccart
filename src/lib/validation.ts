@@ -1,52 +1,6 @@
 import { COUNTRIES, MAX_PRICE_CENTS, MAX_QTY_PER_LINE, MAX_STOCK } from './constants';
 import type { ProductInput, ShippingFields, Validated } from './types';
-
-// Polish UI strings (project override of Appendix C). Every user-visible message
-// in this app comes from here; e2e tests and the docs assert the exact wording.
-export const S = {
-  ERR_BODY: 'Nieprawidłowa treść żądania.',
-  ERR_VALIDATION: 'Popraw zaznaczone pola.',
-
-  ERR_EMAIL_REQUIRED: 'Adres e-mail jest wymagany.',
-  ERR_EMAIL_FORMAT: 'Podaj prawidłowy adres e-mail.',
-  ERR_EMAIL_LENGTH: 'Adres e-mail jest za długi.',
-  ERR_EMAIL_TAKEN: 'To konto e-mail jest już zarejestrowane.',
-
-  ERR_USERNAME_REQUIRED: 'Nazwa użytkownika jest wymagana.',
-  ERR_USERNAME_FORMAT: 'Nazwa użytkownika musi mieć 3–32 znaki i zawierać tylko litery, cyfry, myślniki lub podkreślenia.',
-  ERR_USERNAME_TAKEN: 'Ta nazwa użytkownika jest już zajęta.',
-
-  ERR_PASSWORD_REQUIRED: 'Hasło jest wymagane.',
-  ERR_PASSWORD_LENGTH: 'Hasło musi mieć 8–72 znaki.',
-  ERR_PASSWORD_CLASSES: 'Hasło musi zawierać wielką literę, małą literę i cyfrę.',
-
-  ERR_INVALID_CREDENTIALS: 'Nieprawidłowy e-mail lub hasło.',
-  ERR_UNAUTHENTICATED: 'Musisz być zalogowany.',
-  ERR_FORBIDDEN: 'Nie masz uprawnień, aby to zrobić.',
-  ERR_NOT_FOUND: 'Nie znaleziono.',
-  ERR_GENERIC: 'Coś poszło nie tak. Spróbuj ponownie.',
-
-  ERR_PRODUCT_NAME: 'Nazwa jest wymagana (maks. 100 znaków).',
-  ERR_PRODUCT_DESCRIPTION: 'Opis musi mieć co najwyżej 2 000 znaków.',
-  ERR_PRODUCT_PRICE: 'Cena musi być kwotą dodatnią do 100 000,00 zł, z maksymalnie 2 miejscami po przecinku.',
-  ERR_PRODUCT_STOCK: 'Stan magazynowy musi być liczbą całkowitą od 0 do 1 000 000.',
-  ERR_PRODUCT_ID: 'Nieprawidłowy produkt.',
-  ERR_QTY_INVALID: 'Ilość musi być liczbą całkowitą od 1 do 10.',
-  ERR_QTY_LIMIT: 'Możesz zamawiać najwyżej 10 sztuk na wiersz.',
-  ERR_STOCK_CONFLICT: 'Niektóre produkty nie są już dostępne w zamówionej ilości.',
-  ERR_CART_EMPTY: 'Twój koszyk jest pusty.',
-
-  ERR_FULLNAME_REQUIRED: 'Imię i nazwisko są wymagane.',
-  ERR_FULLNAME_LENGTH: 'Imię i nazwisko muszą mieć 2–80 znaków.',
-  ERR_ADDRESS1_REQUIRED: 'Adres jest wymagany.',
-  ERR_ADDRESS1_LENGTH: 'Adres musi mieć 5–120 znaków.',
-  ERR_ADDRESS2_LENGTH: 'Druga linia adresu musi mieć co najwyżej 120 znaków.',
-  ERR_CITY_REQUIRED: 'Miasto jest wymagane.',
-  ERR_CITY_LENGTH: 'Miasto musi mieć 2–60 znaków.',
-  ERR_POSTAL_REQUIRED: 'Kod pocztowy jest wymagany.',
-  ERR_POSTAL_LENGTH: 'Kod pocztowy musi mieć 3–16 znaków.',
-  ERR_COUNTRY_REQUIRED: 'Wybierz kraj.',
-} as const;
+import { S } from './strings';
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const USERNAME_PATTERN = /^[A-Za-z0-9_-]+$/;

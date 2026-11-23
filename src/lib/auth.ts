@@ -1,6 +1,7 @@
 import { getDb } from '@/db';
 import { hashPassword, verifyPassword } from './password';
-import { S, validateLogin, validateRegistration } from './validation';
+import { validateLogin, validateRegistration } from './validation';
+import { S } from './strings';
 import { createSession } from './session';
 import type { FieldError, Role, User } from './types';
 

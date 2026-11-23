@@ -5,6 +5,8 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .env*.local
+test-results/
+playwright-report/
 
 # prowl-agent: derived state
 .prowl/index.db*

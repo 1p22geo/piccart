@@ -1,7 +1,7 @@
 // API error envelope helpers (§4.8). The single error shape for every route:
 //   { "error": { "code", "message", "fields"? } }
 import type { FieldError } from './types';
-import { S } from './validation';
+import { S } from './strings';
 
 export type ApiErrorCode =
   | 'VALIDATION_ERROR'
