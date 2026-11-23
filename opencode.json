@@ -1,0 +1,15 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "mcp": {
+    "prowl": {
+      "command": [
+        "prowl",
+        "serve",
+        "--mcp-surface",
+        "core"
+      ],
+      "enabled": true,
+      "type": "local"
+    }
+  }
+}
