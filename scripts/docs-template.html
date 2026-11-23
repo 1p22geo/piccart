@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="pl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+*{box-sizing:border-box}
+:root{--ink:#222e2a;--green:#214e43;--line:#d9dfd9;--paper:#fbfaf6;--muted:#53635c}
+body{margin:0;color:var(--ink);background:var(--paper);font:16px/1.65 system-ui,sans-serif}
+header{background:var(--green);color:#fff;padding:16px max(5vw,24px);display:flex;align-items:center;gap:24px}
+header strong{font:700 29px/1 Georgia,serif;letter-spacing:-1px}header span{border-left:1px solid #a1b5ac;padding-left:24px;font-size:14px}
+.layout{display:grid;grid-template-columns:minmax(180px,230px) minmax(0,1fr);max-width:1440px;gap:clamp(24px,5vw,76px);margin:auto;padding:30px 5vw 80px}
+aside{position:sticky;top:20px;align-self:start;max-height:94vh;overflow:auto;padding-right:12px}
+summary{font-weight:700;color:var(--green);cursor:pointer;margin-bottom:12px}
+nav a{display:block;text-decoration:none;color:var(--muted);border-left:2px solid var(--line);padding:5px 12px;font-size:13px}
+nav a.lvl1{font-weight:650;color:var(--ink);padding-top:10px}nav a.lvl2{padding:2px 12px 7px 20px;font-size:12px}
+nav a:hover,nav a[aria-current]{border-color:var(--green);background:#eaf0e9;color:var(--green)}
+.chapter{border-bottom:1px solid var(--line);padding:12px 0 44px;margin-bottom:28px}
+h1,h2{scroll-margin-top:22px;line-height:1.12;letter-spacing:-.035em;color:var(--green)}
+h1{font:normal clamp(32px,4vw,58px)/1.07 Georgia,serif;margin:0 0 16px}h2{font-size:24px;margin-top:30px}
+p,li{max-width:75ch}h1+p{font-size:18px;color:var(--muted)}li{margin:9px 0}li::marker{color:var(--green);font-weight:700}
+figure{margin:24px 0;background:#edece5;border:1px solid var(--line);border-radius:12px;overflow:hidden;padding:clamp(8px,2vw,24px)}
+.zoom{display:block;padding:0;border:0;background:transparent;width:100%;cursor:zoom-in}.zoom img{display:block;width:100%;height:auto;border:1px solid #d9ddd6;border-radius:6px}
+figure:has([data-shot="catalog-mobile.png"]){max-width:440px}figcaption{font-size:13px;color:var(--muted);margin-top:10px}
+code{background:#e8ece6;border-radius:4px;padding:2px 5px;overflow-wrap:anywhere}a{color:var(--green)}
+dialog{max-width:98vw;max-height:98vh;padding:10px;border:0;border-radius:10px;background:white}dialog::backdrop{background:#10221ee6}
+dialog img{display:block;max-width:94vw;max-height:84vh;object-fit:contain;margin:auto}dialog button{display:block;margin:0 0 8px auto;padding:7px 16px;background:var(--green);color:white;border:0;border-radius:5px;cursor:pointer}
+@media(max-width:760px){.layout{display:block;padding:16px}.chapter{padding-top:20px}aside{position:static;max-height:none;border-bottom:1px solid var(--line);padding-bottom:8px}header{padding:14px 16px}.zoom img{border-radius:3px}}
+@media print{aside,dialog{display:none}.layout{display:block;padding:0}.chapter{break-before:page}figure{break-inside:avoid}}
+</style>
+</head>
+<body>
+<header><strong>Piccart</strong><span>Podręcznik użytkownika</span></header>
+<div class="layout"><aside><details open><summary>Spis treści</summary><nav aria-label="Spis treści">{{TOC}}</nav></details></aside><main>{{CONTENT}}</main></div>
+<dialog aria-label="Powiększony zrzut ekranu"><button type="button">Zamknij</button><img alt=""></dialog>
+<script>
+const dialog=document.querySelector('dialog');
+document.querySelectorAll('.zoom').forEach(button=>button.onclick=()=>{
+ const image=button.querySelector('img'),large=dialog.querySelector('img');
+ large.src=image.src;large.alt=image.alt;dialog.showModal();
+});
+dialog.onclick=event=>{if(event.target===dialog||event.target.tagName==='BUTTON')dialog.close()};
+const contents=document.querySelector('details');
+if(matchMedia('(max-width:760px)').matches)contents.open=false;
+document.querySelector('nav').onclick=event=>{
+ if(event.target.tagName==='A'){
+   document.querySelector('nav [aria-current]')?.removeAttribute('aria-current');
+   event.target.setAttribute('aria-current','location');
+   if(matchMedia('(max-width:760px)').matches)contents.open=false;
+ }
+};
+</script>
+</body>
+</html>

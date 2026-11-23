@@ -1,0 +1,18 @@
+node_modules/
+.next/
+out/
+.data/
+*.tsbuildinfo
+next-env.d.ts
+.env*.local
+test-results/
+playwright-report/
+
+# prowl-agent: derived state
+.prowl/index.db*
+.prowl/cache/
+.prowl/logs/
+.prowl/editor/
+.prowl/setup-applies.json
+.prowl-setup.lock
+# /prowl-agent: derived state
