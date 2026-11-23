@@ -2,7 +2,9 @@
   "name": "piccart",
   "version": "1.0.0",
   "private": true,
-  "engines": { "node": ">=22.12" },
+  "engines": {
+    "node": ">=22.12"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -35,6 +37,7 @@
     "eslint-config-next": "^16.4.6",
     "jest": "^30.5.2",
     "marked": "^18.2.1",
-    "typescript": "^7.0.2"
+    "typescript": "^7.0.2",
+    "@types/jest": "^30.0.0"
   }
 }
