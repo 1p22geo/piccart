@@ -1,4 +1,5 @@
-import type { FieldError } from './types';
+import type { FieldError, StockConflict } from './types';
+import { S } from './strings';
 
 export class ApiError extends Error {
   constructor(
@@ -6,6 +7,7 @@ export class ApiError extends Error {
     public code: string,
     message: string,
     public fields: FieldError[] = [],
+    public conflicts: StockConflict[] = [],
   ) { super(message); }
 }
 
@@ -17,7 +19,7 @@ export async function apiFetch<T>(url: string, init?: RequestInit): Promise<T> {
       headers: { 'Content-Type': 'application/json', ...(init?.headers ?? {}) },
     });
   } catch {
-    throw new ApiError(0, 'NETWORK', 'Something went wrong. Please try again.', []);
+    throw new ApiError(0, 'NETWORK', S.ERR_GENERIC);
   }
   if (response.ok) return response.status === 204 ? (undefined as T) : ((await response.json()) as T);
   const body = await response.json().catch(() => null);
@@ -25,7 +27,8 @@ export async function apiFetch<T>(url: string, init?: RequestInit): Promise<T> {
   throw new ApiError(
     response.status,
     err?.code ?? 'UNKNOWN',
-    err?.message ?? 'Something went wrong. Please try again.',
+    err?.message ?? S.ERR_GENERIC,
     err?.fields ?? [],
+    err?.conflicts ?? [],
   );
 }

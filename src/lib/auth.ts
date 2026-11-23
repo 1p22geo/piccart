@@ -58,7 +58,10 @@ export async function registerUser(input: unknown): Promise<RegisterResult> {
     const row = d.prepare('SELECT * FROM users WHERE id = ?').get(userId) as UserRow;
     return { ok: true, user: toUser(row), token };
   } catch (err) {
-    const message = err instanceof Error ? err.message : '';
+    if (typeof err !== 'object' || err === null || !('code' in err) ||
+        err.code !== 'SQLITE_CONSTRAINT_UNIQUE' || !('message' in err) ||
+        typeof err.message !== 'string') throw err;
+    const message = err.message;
     if (message.includes('users.email')) {
       return { ok: false, code: 'EMAIL_TAKEN', errors: [{ field: 'email', message: S.ERR_EMAIL_TAKEN }] };
     }

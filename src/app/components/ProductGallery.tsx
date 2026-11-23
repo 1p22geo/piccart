@@ -1,5 +1,6 @@
 'use client';
 
+import { productImage } from '@/lib/product-image';
 import { useState } from 'react';
 
 type Props = { photos: string[]; name: string };
@@ -9,7 +10,7 @@ export function ProductGallery({ photos, name }: Props) {
 
   return (
     <div className="gallery">
-      <img data-testid="photo-main" src={photos[active]} alt={name} className="gallery__main" />
+      <img data-testid="photo-main" src={productImage(photos[active])} alt={name} className="gallery__main" />
       <div className="gallery__thumbs">
         {photos.map((photo, index) => (
           <button
@@ -21,7 +22,7 @@ export function ProductGallery({ photos, name }: Props) {
             onClick={() => setActive(index)}
             aria-label={`photo ${index + 1}`}
           >
-            <img src={photo} alt="" />
+            <img src={productImage(photo)} alt="" />
           </button>
         ))}
       </div>

@@ -20,7 +20,7 @@ test.describe('auth', () => {
     await page.getByTestId('register-username').fill(uniqueUsername());
     await page.getByTestId('register-password').fill('Sun5et-Lane');
     await page.getByTestId('register-submit').click();
-    const emailError = page.getByTestId('field-error').locator('[data-field="email"]');
+    const emailError = page.locator('[data-testid="field-error"][data-field="email"]');
     await expect(emailError).toHaveText(S.ERR_EMAIL_TAKEN);
   });
 
@@ -30,7 +30,7 @@ test.describe('auth', () => {
     await page.getByTestId('register-username').fill(uniqueUsername());
     await page.getByTestId('register-password').fill('weak');
     await page.getByTestId('register-submit').click();
-    await expect(page.getByTestId('field-error').locator('[data-field="password"]')).toBeVisible();
+    await expect(page.locator('[data-testid="field-error"][data-field="password"]')).toBeVisible();
   });
 
   test('E2E-AUTH-04 login with a wrong password → login-error banner', async ({ page }) => {

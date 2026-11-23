@@ -1,3 +1,4 @@
+import { productImage } from '@/lib/product-image';
 import { cookies } from 'next/headers';
 import Link from 'next/link';
 import { listProducts } from '@/lib/products';
@@ -40,7 +41,7 @@ export default async function CatalogPage({ searchParams }: Props) {
           {result.products.map((product) => (
             <div key={product.id} className="product-card" data-testid="product-card" data-product-id={product.id}>
               <Link href={`/products/${product.id}`}>
-                <img src={product.photos[0]} alt={product.name} width={200} height={200} loading="lazy" />
+                <img src={productImage(product.photos[0])} alt={product.name} width={200} height={200} loading="lazy" />
               </Link>
               <div className="product-card__body">
                 <Link href={`/products/${product.id}`} data-testid="product-name">

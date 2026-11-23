@@ -1,5 +1,5 @@
 import { expect, test } from '@playwright/test';
-import { adminCookie, createProductViaApi } from './helpers';
+import { adminCookie, createProductViaApi, deleteProductViaApi } from './helpers';
 
 test.describe('browse', () => {
   test('E2E-BROWSE-01 search beanie → 1 card; search zzz → empty state', async ({ page }) => {
@@ -28,13 +28,19 @@ test.describe('browse', () => {
     request,
   }) => {
     const admin = await adminCookie(request);
-    for (let i = 0; i < 8; i++) {
-      await createProductViaApi(request, admin, { name: `Extra ${i}` });
+    const ids: number[] = [];
+    try {
+      for (let i = 0; i < 8; i++) {
+        const product = await createProductViaApi(request, admin, { name: `Extra ${i}` });
+        ids.push(product.id);
+      }
+      await page.goto('/?page=2');
+      await expect(page.getByTestId('product-card')).toHaveCount(5);
+      await expect(page.getByTestId('pager-status')).toHaveText('Strona 2 z 2');
+      await expect(page.getByTestId('pager-next')).toBeDisabled();
+    } finally {
+      for (const id of ids) await deleteProductViaApi(request, admin, id);
     }
-    await page.goto('/?page=2');
-    await expect(page.getByTestId('product-card')).toHaveCount(5);
-    await expect(page.getByTestId('pager-status')).toHaveText('Strona 2 z 2');
-    await expect(page.getByTestId('pager-next')).toBeDisabled();
   });
 
   test('E2E-BROWSE-04 /products/1 → title, price, 3 thumbs; thumb click changes main src', async ({ page }) => {
