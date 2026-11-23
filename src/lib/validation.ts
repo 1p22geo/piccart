@@ -96,13 +96,20 @@ function usernameError(value: unknown): { field: 'username'; message: string } |
 function registrationPasswordError(value: unknown): { field: 'password'; message: string } | null {
   const raw = asString(value);
   if (raw === null || raw === '') return { field: 'password', message: S.ERR_PASSWORD_REQUIRED };
-  if (raw.length < 8 || Buffer.byteLength(raw, 'utf8') > 72) {
-    return { field: 'password', message: S.ERR_PASSWORD_LENGTH };
-  }
-  if (!/[A-Z]/.test(raw) || !/[a-z]/.test(raw) || !/[0-9]/.test(raw)) {
+  if (!passwordMeetsPolicy(raw)) {
+    if (raw.length < 8 || Buffer.byteLength(raw, 'utf8') > 72) {
+      return { field: 'password', message: S.ERR_PASSWORD_LENGTH };
+    }
     return { field: 'password', message: S.ERR_PASSWORD_CLASSES };
   }
   return null;
+}
+
+// The §6.2 password policy, as a pure predicate. Used by the registration
+// validator and by the admin bootstrap (which must reject a weak ADMIN_PASSWORD).
+export function passwordMeetsPolicy(plain: string): boolean {
+  if (plain.length < 8 || Buffer.byteLength(plain, 'utf8') > 72) return false;
+  return /[A-Z]/.test(plain) && /[a-z]/.test(plain) && /[0-9]/.test(plain);
 }
 
 export function validateRegistration(input: unknown): Validated<{ email: string; username: string; password: string }> {
