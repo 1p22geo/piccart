@@ -1,0 +1,40 @@
+{
+  "name": "piccart",
+  "version": "1.0.0",
+  "private": true,
+  "engines": { "node": ">=22.12" },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint .",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:e2e": "playwright test",
+    "seed": "node scripts/seed-demo.mjs",
+    "docs:screenshots": "node scripts/capture-docs-screenshots.mjs",
+    "docs:build": "node scripts/build-docs.mjs",
+    "verify": "npm run typecheck && npm run test && npm run build && npm run test:e2e && npm run docs:build"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "better-sqlite3": "^13.2.0",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.1",
+    "@playwright/test": "^1.65.1",
+    "@types/better-sqlite3": "^9.6.0",
+    "@types/node": "^26.6.6",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^10.15.0",
+    "eslint-config-next": "^16.4.6",
+    "jest": "^30.5.2",
+    "marked": "^18.2.1",
+    "typescript": "^7.0.2"
+  }
+}
